@@ -8,18 +8,11 @@ public class Restaurant
 	int warteNr;
 	
 	//Queue, um zu sehen, welche Gäste im Wartebereich stehen. Können wenn sie gehen gelöscht werden
-	
 	LinkedList <Person> gaesteImRestaurant = new LinkedList<>();
 	Kellner [] alleKellner = new Kellner[4];
 	Tisch [] alleTische = new Tisch[6];
 	
-	
-	
-	
-	
-	
 	//Methoden
-	
 	public void createPersonengruppe(int personenzahl)
 	{
 		for(int i = 0; i < personenzahl; i++)
@@ -29,21 +22,19 @@ public class Restaurant
 		
 		gastTischZuweisen();
 		kellnerUpdate();
-		
 	}
 	
 	public void createGast(String vorname, String nachname)
 	{
 		gaesteImRestaurant.add(new Gast(vorname, nachname, warteNr));
 		anzahlGaeste++;
-		
-		
 	}
+	
 	public Kellner freienKellnerAussuchen()
 	{
 		for(int i = 0; i < alleKellner.length; i++)
 		{
-			if(alleKellner[i].tischzugewiesen == false)
+			if(alleKellner[i].tischZugewiesen == false)
 			{
 				return alleKellner[i];
 			}
@@ -71,24 +62,23 @@ public class Restaurant
 						j++;
 					}
 				}
-					
 				alleTische[i].besetzt = true;
 			}
 		}
 	}
+	
 	public void kellnerUpdate()
 	{
 		Kellner aktKellner = freienKellnerAussuchen();
 		
 		//Was passiert, wenn kein freier Kellner verfügbar?
-		
 		for(int i = 0; i < alleTische.length; i++)
 		{
 			if(alleTische[i].isBesetzt() == true && alleTische[i].hatKellner == false)
 			{
 				aktKellner.tischZuweisen(alleTische[i]);
 				alleTische[i].hatKellner = true;
-				aktKellner.tischzugewiesen = true;
+				aktKellner.tischZugewiesen = true;
 			}
 		}
 	}

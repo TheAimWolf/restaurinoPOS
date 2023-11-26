@@ -1,26 +1,19 @@
 package restaurinoPOS;
 
-public class Person 
+public class Person
 {
-	String vorname, nachname;
-	
+	private String personVorname;
+	private String personNachname;
 	
 	public Person(String vorname, String nachname)
 	{
-		this.nachname = vorname;
-		this.nachname = nachname;
-		
+		// TODO: VORNAME, NACHNAME LENGTH > 0 \\
+		this.personVorname = vorname;
+		this.personNachname = nachname;
 	}
 	
-	
-	
-	
-	
-	
-	//getter und setter
-	
-	public String getName()
+	public String getPersonName()
 	{
-		return vorname + " " + nachname;
+		return personVorname + " " + personNachname;
 	}
 }

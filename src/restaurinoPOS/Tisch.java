@@ -2,40 +2,94 @@ package restaurinoPOS;
 
 public class Tisch 
 {
-	boolean rechnungBezahlt;
-	double rechnungsbetrag;
-	int personenzahl;
-	boolean besetzt;
-	boolean hatKellner;
-	Gast [] gaesteAmTisch = new Gast[4];
+	private final int TISCHGROESSE = 4;
+	private Gast[] tischGaeste = new Gast[TISCHGROESSE];
+	private Kellner tischZugewiesenerKellner;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// getters und setters
-	
-	public boolean isBesetzt()
-	{
-		return besetzt;
+	public void tischKellnerZuweisen(Kellner kellner) {
+		tischZugewiesenerKellner = kellner;
 	}
 	
-	public double getRechnungsbetrag()
-	{
-		return rechnungsbetrag;
+	public void tischKellnerEntfernen() {
+		tischZugewiesenerKellner = null;
 	}
 	
-	public void addPersonen()
-	{
-		//TODO
-		// gastTischZuweisen() der Klasse Restaurant könnte so mehr objektorientiert gemacht werden
+	public boolean tischKellnerZugewiesen() {
+		if (tischZugewiesenerKellner == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public boolean tischBesetzt() {
+		if (tischAnzahlGaeste() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean tischVoll() {
+		if (tischAnzahlGaeste() == TISCHGROESSE) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public int tischAnzahlGaeste() {
+		int anzahlGaesteAnTisch = 0;
+		
+		for (int i = 0; i < tischGaeste.length; i++) {
+			if (tischGaeste[i] != null) {
+				anzahlGaesteAnTisch++;
+			}
+		}
+		
+		return anzahlGaesteAnTisch;
+	}
+	
+	public void tischGastHinzufuegen(Gast gast) {
+		if (tischVoll() == false) {
+			for (int i = 0; i < tischGaeste.length; i++) {
+				if (tischGaeste[i] == null) {
+					tischGaeste[i] = gast;
+					break;
+				}
+			}
+		} else {
+			System.out.println("Dieser Tisch ist bereits voll. Bitte wählen Sie einen anderen Tisch.");
+		}
+	}
+	
+	public void tischGaesteBezahlen() {
+		for (int i = 0; i < tischGaeste.length; i++) {
+			Gast.gastBezahlt();
+		}
+	}
+	
+	public void tischGaesteLeeren() {
+		if (tischGaesteRechnungenBezahlt() == true) {
+			for (int i = 0; i < tischGaeste.length; i++ ) {
+				tischGaeste[i] = null;
+			}
+			tischKellnerEntfernen();
+			// GÄSTE LÖSCHEN??? \\
+		} else {
+			System.out.println("Es haben noch nicht alle Gäste ihre Rechnung beglichen. Bitte erst bezahlen und dann erneut versuchen.");
+		}
+	}
+	
+	public boolean tischGaesteRechnungenBezahlt() {
+		boolean gaesteBezahlt = true;
+		
+		for (int i = 0; i < tischGaeste.length; i++) {
+			if (Gast.istBezahlt() == false) {
+				gaesteBezahlt = false;
+			}
+		}
+		
+		return gaesteBezahlt;
 	}
 }

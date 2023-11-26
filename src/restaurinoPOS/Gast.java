@@ -1,52 +1,45 @@
 package restaurinoPOS;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Gast extends Person
 {
-	boolean hatTisch;
-	int gruppenzahl; //dadurch geht man sicher, dass Pers aus gleicher Gruppe zu gleichem Tisch kommen
+	private Tisch gastZugewiesenerTisch;
+	private List <Bestellung> gastBestellungen = new ArrayList<>();
+	private double gastBestellungenSumme;
 	
-	
-	
-	public Gast(String vorname, String nachname, int gruppenzahl)
+	public Gast(String vorname, String nachname, Tisch tisch)
 	{
 		super(vorname, nachname);
-		hatTisch = false;
-		this.gruppenzahl = gruppenzahl;
+		tisch.tischGastHinzufuegen(this);
 	}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//Methoden
 	
-		public void bestellen(Bestellung eineBestellung)
-		{
-			// TODO
-		}
-		
-		public void tischVerlassen()
-		{
-			//TODO
-			// Der Gast muss aus der LinkedList im Restaurant gelöscht werden
-			// die Attribute der Klase Tisch müssen auf false ggesetzt werden
-			// Der Kellner muss wieder auf verfügbar gesetzt werden
-			// Es muss vorher schon bezahlt worden sein
-			// Anzahl Gäste auch --
-		}
-		
-		public void bezahlen()
-		{
-			//TODO
-			// Speisen und Getränke werden dargestellt und Summe ermittelt
-			// in der Klasse Tisch gibt es extra dafür 2 Rechnungsattribute
-		}
+	public void gastBestellt(Bestellung Bestellung)
+	{
+		// TODO
+	}
 	
+	public void gastBezahlt()
+	{
+		System.out.println("Gast: " + getPersonName());
+		
+		for (int i = 0; i < gastBestellungen.size(); i++) {
+			System.out.println(gastBestellungen.get(i));
+		}
+		
+		// RECHNUNGSSUMME DYNAMISCH AUSRECHNEN \\
+		System.out.println("Rechnungssumme: " + gastBestellungenSumme);
+		
+		// EINGABE ABFRAGEN, OB BEZAHLVORGANG ERFOLGREICH \\
+		gastBestellungenSumme = 0;
+	}
+	
+	public boolean istBezahlt() {
+		if (gastBestellungenSumme == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
