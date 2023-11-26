@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Gast extends Person
 {
-	private Tisch gastZugewiesenerTisch;
 	private List <Bestellung> gastBestellungen = new ArrayList<>();
 	private double gastBestellungenSumme;
 	
