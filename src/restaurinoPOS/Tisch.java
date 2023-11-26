@@ -65,7 +65,7 @@ public class Tisch
 	
 	public void tischGaesteBezahlen() {
 		for (int i = 0; i < tischGaeste.length; i++) {
-			Gast.gastBezahlt();
+			tischGaeste[i].gastBezahlt();
 		}
 	}
 	
@@ -85,7 +85,7 @@ public class Tisch
 		boolean gaesteBezahlt = true;
 		
 		for (int i = 0; i < tischGaeste.length; i++) {
-			if (Gast.istBezahlt() == false) {
+			if (tischGaeste[i].istBezahlt() == false) {
 				gaesteBezahlt = false;
 			}
 		}
