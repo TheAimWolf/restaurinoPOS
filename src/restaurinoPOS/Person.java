@@ -1,19 +1,19 @@
 package restaurinoPOS;
 
-public class Person
-{
+public class Person {
 	private String personVorname;
 	private String personNachname;
-	
-	public Person(String vorname, String nachname)
-	{
-		// TODO: VORNAME, NACHNAME LENGTH > 0 \\
-		this.personVorname = vorname;
-		this.personNachname = nachname;
+
+	public Person(String vorname, String nachname) {
+		if (vorname.length() > 0 && nachname.length() > 0) {
+			this.personVorname = vorname;
+			this.personNachname = nachname;
+		} else {
+			System.out.println("Person muss einen gültigen Namen haben!");
+		}
 	}
-	
-	public String getPersonName()
-	{
+
+	public String getPersonName() {
 		return personVorname + " " + personNachname;
 	}
 }
