@@ -4,7 +4,12 @@ public class Tisch {
 	private final int TISCHGROESSE = 4;
 	private Gast[] tischGaeste = new Gast[TISCHGROESSE];
 	private Kellner tischZugewiesenerKellner;
+	private Restaurant restaurant;
 
+	public Tisch() {
+		restaurant.restaurantTischeHinzufuegen(this);
+	}
+	
 	public void tischKellnerZuweisen(Kellner kellner) {
 		tischZugewiesenerKellner = kellner;
 	}

@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Gast extends Person {
 	private List<Posten> gastBestellungen = new ArrayList<>();
 	private Tisch tisch;
+	private Restaurant restaurant;
 
 	public Gast(String vorname, String nachname, Tisch tisch) {
 		super(vorname, nachname);
@@ -40,7 +41,9 @@ public class Gast extends Person {
 			String usereingabe = sc.next();
 
 			if (usereingabe.equalsIgnoreCase("ja")) {
+				restaurant.restaurantGesamtumsatzHinzufuegen(gastBestellungenGetSumme());
 				gastBestellungenLeeren();
+				sc.close();
 			}
 		}
 
