@@ -6,6 +6,11 @@ public class Tisch {
 	private Kellner tischZugewiesenerKellner;
 	private Restaurant restaurant;
 
+	/**
+	 * Public Konstruktor Klasse Tisch
+	 * 
+	 * Erzeugen eines Tisches im Restaurant.
+	 */
 	public Tisch() {
 		restaurant.restaurantTischeHinzufuegen(this);
 	}

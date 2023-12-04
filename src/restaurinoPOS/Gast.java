@@ -9,6 +9,13 @@ public class Gast extends Person {
 	private Tisch tisch;
 	private Restaurant restaurant;
 
+	/**
+	 * Public Konstruktor Klasse Gast
+	 * 
+	 * @see Konstruktur Klasse Person
+	 * @param String vorname, String nachname (Zum Anlegen des Gastes wird ein Vorname und ein Nachname benötigt.)
+	 *        Tisch tisch (Beim Anlegen eines Gastes wird dieser direkt einem Tisch im Restaurant zugewiesen.)
+	 */
 	public Gast(String vorname, String nachname, Tisch tisch) {
 		super(vorname, nachname);
 
