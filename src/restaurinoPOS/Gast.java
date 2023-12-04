@@ -16,7 +16,7 @@ public class Gast extends Person {
 		tisch.tischGastHinzufuegen(this);
 	}
 
-	public void gastBestellt(Posten posten) {
+	protected void gastBestellt(Posten posten) {
 		if (tisch.tischKellnerZugewiesen() == true) {
 			gastBestellungen.add(posten);
 		} else {
@@ -24,7 +24,7 @@ public class Gast extends Person {
 		}
 	}
 
-	public void gastBezahlt() {
+	protected void gastBezahlt() {
 		System.out.println("Gast: " + getPersonName());
 
 		if (gastBestellungenGetSumme() == 0) {
@@ -49,7 +49,7 @@ public class Gast extends Person {
 
 	}
 
-	public double gastBestellungenGetSumme() {
+	private double gastBestellungenGetSumme() {
 		double gastBestellungenSumme = 0;
 
 		for (int i = 0; i < gastBestellungen.size(); i++) {
@@ -59,11 +59,11 @@ public class Gast extends Person {
 		return Math.round(gastBestellungenSumme * 100.0) / 100.0;
 	}
 
-	public void gastBestellungenLeeren() {
+	private void gastBestellungenLeeren() {
 		gastBestellungen.clear();
 	}
 
-	public boolean istBezahlt() {
+	protected boolean gastHatBezahlt() {
 		if (gastBestellungenGetSumme() == 0) {
 			return true;
 		} else {

@@ -6,7 +6,6 @@ import java.util.List;
 public class Posten {
 	private double postenPreis;
 	private String postenName;
-
 	private List<Posten> allePosten = new ArrayList<>();
 
 	public Posten(String name, double preis) {
@@ -16,11 +15,11 @@ public class Posten {
 		allePosten.add(this);
 	}
 
-	public String getPostenName() {
+	protected String getPostenName() {
 		return postenName;
 	}
 
-	public double getPostenPreis() {
+	protected double getPostenPreis() {
 		return postenPreis;
 	}
 }

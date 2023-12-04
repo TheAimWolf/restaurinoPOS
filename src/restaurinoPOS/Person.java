@@ -13,7 +13,7 @@ public class Person {
 		}
 	}
 
-	public String getPersonName() {
+	protected String getPersonName() {
 		return personVorname + " " + personNachname;
 	}
 }

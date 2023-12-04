@@ -92,7 +92,7 @@ public class Restaurant {
 		}
 	}
 
-	public void restaurantGesamtumsatzHinzufuegen(Double umsatz) {
+	protected void restaurantGesamtumsatzHinzufuegen(Double umsatz) {
 		gesamtumsatzAbrechnung = gesamtumsatzAbrechnung + umsatz;
 	}
 
@@ -100,7 +100,7 @@ public class Restaurant {
 		return gesamtumsatzAbrechnung;
 	}
 
-	public void restaurantTischeHinzufuegen(Tisch tisch) {
+	protected void restaurantTischeHinzufuegen(Tisch tisch) {
 		restaurantTische.add(tisch);
 	}
 
