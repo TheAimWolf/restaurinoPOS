@@ -1,5 +1,9 @@
 package restaurinoPOS;
 
+/**
+ * Person im Restaurant
+ * Stellt Methoden für Klassen Kellner und Gast bereit.
+ */
 public class Person {
 	private String personVorname;
 	private String personNachname;
@@ -7,7 +11,8 @@ public class Person {
 	/**
 	 * Public Konstruktor Klasse Person
 	 * 
-	 * @param String vorname, String nachname (Zum Anlegen der Person wird ein Vorname und ein Nachname benötigt.)
+	 * @param vorname Zum Anlegen einer Person wird ein ein Vorname benötigt.
+	 * @param nachname Zum Anlegen einer Person wird ein ein Nachname benötigt.
 	 */
 	public Person(String vorname, String nachname) {
 		if (vorname.length() > 0 && nachname.length() > 0) {

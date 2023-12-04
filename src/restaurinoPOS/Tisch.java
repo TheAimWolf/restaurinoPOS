@@ -1,5 +1,9 @@
 package restaurinoPOS;
 
+/**
+ * Tisch im Restaurant
+ * Am Tisch sitzen Gäste, diese werden von einem Kellner bedient.
+ */
 public class Tisch {
 	private final int TISCHGROESSE = 4;
 	private Gast[] tischGaeste = new Gast[TISCHGROESSE];

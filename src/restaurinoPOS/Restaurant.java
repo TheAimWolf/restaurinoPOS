@@ -9,6 +9,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Restaurant, Programm wird ausgeführt
+ */
 public class Restaurant {
 
 	private static File gesamtumsatzFile;

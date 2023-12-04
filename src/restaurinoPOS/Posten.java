@@ -3,6 +3,9 @@ package restaurinoPOS;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Posten auf Speisekarte
+ */
 public class Posten {
 	private double postenPreis;
 	private String postenName;
@@ -11,8 +14,8 @@ public class Posten {
 	/**
 	 * Public Konstruktor Klasse Posten
 	 * 
-	 * @param String name (Zum Anlegen eines Postens wird ein Name benötigt. Bsp: "Schnitzel mit Pommes")
-	 *        double preis (Zum Anlegen eines Postens wird ein Preis benötigt.)
+	 * @param name Zum Anlegen eines Postens wird ein Name benötigt. Bsp: "Schnitzel mit Pommes"
+	 *        preis Zum Anlegen eines Postens wird ein Preis benötigt.
 	 */
 	public Posten(String name, double preis) {
 		this.postenName = name;

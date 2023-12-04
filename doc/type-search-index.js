@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"Alle Klassen und Schnittstellen","u":"allclasses-index.html"},{"p":"restaurinoPOS","l":"Gast"},{"p":"restaurinoPOS","l":"Kellner"},{"p":"restaurinoPOS","l":"Person"},{"p":"restaurinoPOS","l":"Posten"},{"p":"restaurinoPOS","l":"Restaurant"},{"p":"restaurinoPOS","l":"Tisch"}];updateSearchResults();
