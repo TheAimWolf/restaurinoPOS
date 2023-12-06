@@ -4,10 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Gast im Restaurant
+ */
 public class Gast extends Person {
 	private List<Posten> gastBestellungen = new ArrayList<>();
 	private Tisch tisch;
+	private Restaurant restaurant;
 
+	/**
+	 * Public Konstruktor Klasse Gast
+	 * 
+	 * @see Person#Person(String, String)
+	 * @param vorname Zum Anlegen des Gastes wird ein Vorname benötigt.
+	 * @param nachname Zum Anlegen des Gastes wird ein Nachname benötigt.
+	 * @param tisch Zum Anlegen eines Gastes wird diesem direkt einem Tisch im Restaurant zugewiesen.
+	 */
 	public Gast(String vorname, String nachname, Tisch tisch) {
 		super(vorname, nachname);
 
@@ -15,7 +27,7 @@ public class Gast extends Person {
 		tisch.tischGastHinzufuegen(this);
 	}
 
-	public void gastBestellt(Posten posten) {
+	protected void gastBestellt(Posten posten) {
 		if (tisch.tischKellnerZugewiesen() == true) {
 			gastBestellungen.add(posten);
 		} else {
@@ -23,7 +35,7 @@ public class Gast extends Person {
 		}
 	}
 
-	public void gastBezahlt() {
+	protected void gastBezahlt() {
 		System.out.println("Gast: " + getPersonName());
 
 		if (gastBestellungenGetSumme() == 0) {
@@ -40,13 +52,15 @@ public class Gast extends Person {
 			String usereingabe = sc.next();
 
 			if (usereingabe.equalsIgnoreCase("ja")) {
+				restaurant.restaurantGesamtumsatzHinzufuegen(gastBestellungenGetSumme());
 				gastBestellungenLeeren();
+				sc.close();
 			}
 		}
 
 	}
 
-	public double gastBestellungenGetSumme() {
+	private double gastBestellungenGetSumme() {
 		double gastBestellungenSumme = 0;
 
 		for (int i = 0; i < gastBestellungen.size(); i++) {
@@ -56,11 +70,11 @@ public class Gast extends Person {
 		return Math.round(gastBestellungenSumme * 100.0) / 100.0;
 	}
 
-	public void gastBestellungenLeeren() {
+	private void gastBestellungenLeeren() {
 		gastBestellungen.clear();
 	}
 
-	public boolean istBezahlt() {
+	protected boolean gastHatBezahlt() {
 		if (gastBestellungenGetSumme() == 0) {
 			return true;
 		} else {

@@ -1,19 +1,33 @@
 package restaurinoPOS;
 
+/**
+ * Tisch im Restaurant
+ * Am Tisch sitzen Gäste, diese werden von einem Kellner bedient.
+ */
 public class Tisch {
 	private final int TISCHGROESSE = 4;
 	private Gast[] tischGaeste = new Gast[TISCHGROESSE];
 	private Kellner tischZugewiesenerKellner;
+	private Restaurant restaurant;
 
-	public void tischKellnerZuweisen(Kellner kellner) {
+	/**
+	 * Public Konstruktor Klasse Tisch
+	 * 
+	 * Erzeugen eines Tisches im Restaurant.
+	 */
+	public Tisch() {
+		restaurant.restaurantTischeHinzufuegen(this);
+	}
+	
+	protected void tischKellnerZuweisen(Kellner kellner) {
 		tischZugewiesenerKellner = kellner;
 	}
 
-	public void tischKellnerEntfernen() {
+	private void tischKellnerEntfernen() {
 		tischZugewiesenerKellner = null;
 	}
 
-	public boolean tischKellnerZugewiesen() {
+	protected boolean tischKellnerZugewiesen() {
 		if (tischZugewiesenerKellner == null) {
 			return false;
 		} else {
@@ -21,15 +35,7 @@ public class Tisch {
 		}
 	}
 
-	public boolean tischBesetzt() {
-		if (tischAnzahlGaeste() > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean tischVoll() {
+	private boolean tischVoll() {
 		if (tischAnzahlGaeste() == TISCHGROESSE) {
 			return true;
 		} else {
@@ -37,7 +43,7 @@ public class Tisch {
 		}
 	}
 
-	public int tischAnzahlGaeste() {
+	private int tischAnzahlGaeste() {
 		int anzahlGaesteAnTisch = 0;
 
 		for (int i = 0; i < tischGaeste.length; i++) {
@@ -49,7 +55,7 @@ public class Tisch {
 		return anzahlGaesteAnTisch;
 	}
 
-	public void tischGastHinzufuegen(Gast gast) {
+	protected void tischGastHinzufuegen(Gast gast) {
 		if (tischVoll() == false) {
 			for (int i = 0; i < tischGaeste.length; i++) {
 				if (tischGaeste[i] == null) {
@@ -62,7 +68,7 @@ public class Tisch {
 		}
 	}
 
-	public void tischGaesteBezahlen() {
+	protected void tischGaesteBezahlen() {
 		for (int i = 0; i < tischGaeste.length; i++) {
 			if (tischGaeste[i] != null) {
 				tischGaeste[i].gastBezahlt();
@@ -70,7 +76,7 @@ public class Tisch {
 		}
 	}
 
-	public void tischGaesteLeeren() {
+	protected void tischGaesteLeeren() {
 		if (tischGaesteRechnungenBezahlt() == true) {
 			for (int i = 0; i < tischGaeste.length; i++) {
 				tischGaeste[i] = null;
@@ -84,12 +90,12 @@ public class Tisch {
 		}
 	}
 
-	public boolean tischGaesteRechnungenBezahlt() {
+	protected boolean tischGaesteRechnungenBezahlt() {
 		boolean gaesteBezahlt = true;
 
 		for (int i = 0; i < tischGaeste.length; i++) {
 			if (tischGaeste[i] != null) {
-				if (tischGaeste[i].istBezahlt() == false) {
+				if (tischGaeste[i].gastHatBezahlt() == false) {
 					gaesteBezahlt = false;
 				}
 			}
