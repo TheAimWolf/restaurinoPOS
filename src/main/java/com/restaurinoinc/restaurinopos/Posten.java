@@ -1,4 +1,4 @@
-package restaurinoPOS;
+package com.restaurinoinc.restaurinopos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,11 @@ public class Posten {
 		allePosten.add(this);
 	}
 
-	protected String getPostenName() {
+	public String getPostenName() {
 		return postenName;
 	}
 
-	protected double getPostenPreis() {
+	public double getPostenPreis() {
 		return postenPreis;
 	}
 }

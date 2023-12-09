@@ -1,4 +1,4 @@
-package restaurinoPOS;
+package com.restaurinoinc.restaurinopos;
 
 /**
  * Person im Restaurant
@@ -26,4 +26,6 @@ public class Person {
 	protected String getPersonName() {
 		return personVorname + " " + personNachname;
 	}
+	public String getPersonVorname(){return personVorname;}
+	public String getPersonNachname(){return personNachname;}
 }

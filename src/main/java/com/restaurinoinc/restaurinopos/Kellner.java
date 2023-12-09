@@ -1,4 +1,4 @@
-package restaurinoPOS;
+package com.restaurinoinc.restaurinopos;
 
 /**
  * Kellner im Restaurant

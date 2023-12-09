@@ -1,4 +1,4 @@
-package restaurinoPOS;
+package com.restaurinoinc.restaurinopos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +14,11 @@ public class Gast extends Person {
 
 	/**
 	 * Public Konstruktor Klasse Gast
-	 * 
-	 * @see Person#Person(String, String)
-	 * @param vorname Zum Anlegen des Gastes wird ein Vorname benötigt.
+	 *
+	 * @param vorname  Zum Anlegen des Gastes wird ein Vorname benötigt.
 	 * @param nachname Zum Anlegen des Gastes wird ein Nachname benötigt.
-	 * @param tisch Zum Anlegen eines Gastes wird diesem direkt einem Tisch im Restaurant zugewiesen.
+	 * @param tisch    Zum Anlegen eines Gastes wird diesem direkt einem Tisch im Restaurant zugewiesen.
+	 * @see Person#Person(String, String)
 	 */
 	public Gast(String vorname, String nachname, Tisch tisch) {
 		super(vorname, nachname);
@@ -35,6 +35,14 @@ public class Gast extends Person {
 		}
 	}
 
+	public List<Posten> getGastBestellungen(){
+		return gastBestellungen;
+	}
+
+	public int getTischnummer(){
+		return tisch.getTischnummer();
+	}
+
 	protected void gastBezahlt() {
 		System.out.println("Gast: " + getPersonName());
 
@@ -47,20 +55,13 @@ public class Gast extends Person {
 
 			System.out.println("Rechnungssumme: " + gastBestellungenGetSumme() + "€");
 
-			System.out.println("Ist die Rechnung bezahlt worden?");
-			Scanner sc = new Scanner(System.in);
-			String usereingabe = sc.next();
-
-			if (usereingabe.equalsIgnoreCase("ja")) {
-				restaurant.restaurantGesamtumsatzHinzufuegen(gastBestellungenGetSumme());
-				gastBestellungenLeeren();
-				sc.close();
-			}
+			Restaurant.restaurantGesamtumsatzHinzufuegen(gastBestellungenGetSumme());
+			gastBestellungenLeeren();
 		}
 
 	}
 
-	private double gastBestellungenGetSumme() {
+	public double gastBestellungenGetSumme() {
 		double gastBestellungenSumme = 0;
 
 		for (int i = 0; i < gastBestellungen.size(); i++) {

@@ -1,22 +1,35 @@
-package restaurinoPOS;
+package com.restaurinoinc.restaurinopos;
 
 /**
  * Tisch im Restaurant
  * Am Tisch sitzen Gäste, diese werden von einem Kellner bedient.
  */
 public class Tisch {
+	private int tischnummer;
 	private final int TISCHGROESSE = 4;
 	private Gast[] tischGaeste = new Gast[TISCHGROESSE];
+
+	public Kellner getTischZugewiesenerKellner() {
+		return tischZugewiesenerKellner;
+	}
+
+	public void setTischZugewiesenerKellner(Kellner tischZugewiesenerKellner) {
+		this.tischZugewiesenerKellner = tischZugewiesenerKellner;
+	}
+
 	private Kellner tischZugewiesenerKellner;
-	private Restaurant restaurant;
 
 	/**
 	 * Public Konstruktor Klasse Tisch
 	 * 
 	 * Erzeugen eines Tisches im Restaurant.
 	 */
-	public Tisch() {
-		restaurant.restaurantTischeHinzufuegen(this);
+	public Tisch(int pTischnummer) {
+		tischnummer = pTischnummer;
+	}
+
+	public Integer getTischnummer() {
+		return tischnummer;
 	}
 	
 	protected void tischKellnerZuweisen(Kellner kellner) {
@@ -27,6 +40,10 @@ public class Tisch {
 		tischZugewiesenerKellner = null;
 	}
 
+	public Gast[] getTischGaeste(){
+		return tischGaeste;
+	}
+
 	protected boolean tischKellnerZugewiesen() {
 		if (tischZugewiesenerKellner == null) {
 			return false;
@@ -35,7 +52,7 @@ public class Tisch {
 		}
 	}
 
-	private boolean tischVoll() {
+	public boolean tischVoll() {
 		if (tischAnzahlGaeste() == TISCHGROESSE) {
 			return true;
 		} else {
@@ -43,7 +60,15 @@ public class Tisch {
 		}
 	}
 
-	private int tischAnzahlGaeste() {
+	public boolean tischLeer() {
+		if (tischAnzahlGaeste() == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public int tischAnzahlGaeste() {
 		int anzahlGaesteAnTisch = 0;
 
 		for (int i = 0; i < tischGaeste.length; i++) {

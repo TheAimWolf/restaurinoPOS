@@ -1,4 +1,9 @@
-package restaurinoPOS;
+package com.restaurinoinc.restaurinopos;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,33 +17,43 @@ import java.util.List;
 /**
  * Restaurant, Programm wird ausgeführt
  */
-public class Restaurant {
+public class Restaurant extends Application {
 
 	private static File gesamtumsatzFile;
 	private static double gesamtumsatzAbrechnung;
-	private static List<Tisch> restaurantTische = new ArrayList<>();
+	public static List<Tisch> restaurantTische = new ArrayList<>();
+	public static List<Kellner> restaurantKellner = new ArrayList<>();
+	public static List<Gast> restaurantGaeste = new ArrayList<>();
+	public static List<Posten> restaurantPosten = new ArrayList<>();
+
 
 	public static void main(String[] args) {
+
 		Posten pizza = new Posten("Pizza", 2.90);
 		Posten cola = new Posten("Cola", 28.20);
+		restaurantPosten.add(pizza);
+		restaurantPosten.add(cola);
 
 		Kellner kellner = new Kellner("A", "B");
-		Tisch tisch = new Tisch();
+		restaurantKellner.add(kellner);
+		Tisch tisch = new Tisch(1);
+		restaurantTische.add(tisch);
 
 		tisch.tischKellnerZuweisen(kellner);
 
 		Gast gast1 = new Gast("Gast", "1", tisch);
 		Gast gast2 = new Gast("Gast", "2", tisch);
+		restaurantGaeste.add(gast1);
+		restaurantGaeste.add(gast2);
+		launch();
 
 		gast1.gastBestellt(cola);
 		gast1.gastBestellt(pizza);
 
 		gast2.gastBestellt(cola);
 
-		tisch.tischGaesteBezahlen();
-		tisch.tischGaesteLeeren();
-
 		restaurantClose();
+
 	}
 
 	private static void restaurantClose() {
@@ -95,7 +110,7 @@ public class Restaurant {
 		}
 	}
 
-	protected void restaurantGesamtumsatzHinzufuegen(Double umsatz) {
+	public static void restaurantGesamtumsatzHinzufuegen(Double umsatz) {
 		gesamtumsatzAbrechnung = gesamtumsatzAbrechnung + umsatz;
 	}
 
@@ -103,8 +118,13 @@ public class Restaurant {
 		return gesamtumsatzAbrechnung;
 	}
 
-	protected void restaurantTischeHinzufuegen(Tisch tisch) {
-		restaurantTische.add(tisch);
-	}
 
+	@Override
+	public void start(Stage stage) throws Exception {
+		FXMLLoader fxmlLoader = new FXMLLoader(Restaurant.class.getResource("hello-view.fxml"));
+		Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+		stage.setTitle("Restaurino POS");
+		stage.setScene(scene);
+		stage.show();
+	}
 }
