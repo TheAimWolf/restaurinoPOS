@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -39,6 +40,8 @@ public class HelloController {
     private Pagination gastRechnungPagination;
     @FXML
     private Button tischFreigebenButton;
+    @FXML
+    private Label tagesumsatzText;
 
     @FXML
     public void initialize() {
@@ -203,7 +206,7 @@ public class HelloController {
                 initialize();
                 newWindow.close();
             }else{
-                zeigeFehler("Bitte gebe einen Namen an");
+                zeigePopUp("Bitte gebe einen Namen an");
             }
         });
     }
@@ -236,10 +239,10 @@ public class HelloController {
                     initialize();
                     newWindow.close();
                 } catch (NumberFormatException e) {
-                    zeigeFehler("Bitte gebe einen gültigen Preis ein");
+                    zeigePopUp("Bitte gebe einen gültigen Preis ein");
                 }
             } else {
-                zeigeFehler("Bitte gebe einen Namen und einen Preis an");
+                zeigePopUp("Bitte gebe einen Namen und einen Preis an");
             }
         });
     }
@@ -294,7 +297,7 @@ public class HelloController {
                 initialize();
                 newWindow.close();
             } else {
-                zeigeFehler("Bitte gebe einen Namen und wähle einen Tisch aus");
+                zeigePopUp("Bitte gebe einen Namen und wähle einen Tisch aus");
             }
         });
     }
@@ -317,7 +320,7 @@ public class HelloController {
                 int finalTischnummerText = tischnummerText;
                 boolean tischnummerVergeben = Restaurant.restaurantTische.stream().anyMatch(restaurantTisch -> restaurantTisch.getTischnummer() == finalTischnummerText);
                 if(tischnummerVergeben){
-                    zeigeFehler("Diese Nummer ist bereits vergeben");
+                    zeigePopUp("Diese Nummer ist bereits vergeben");
                 }else{
                     Tisch tisch = new Tisch(tischnummerText);
                     Restaurant.restaurantTische.add(tisch);
@@ -329,7 +332,7 @@ public class HelloController {
                 }
             }
             catch (NumberFormatException err){
-                zeigeFehler("Bitte eine Zahle eingeben");
+                zeigePopUp("Bitte eine Zahle eingeben");
             }
         });
     }
@@ -340,10 +343,16 @@ public class HelloController {
         Posten ausgewaehlterPosten = postenComboBox.getSelectionModel().getSelectedItem();
 
         if (ausgewaehlterGast != null && ausgewaehlterPosten != null) {
-            ausgewaehlterGast.gastBestellt(ausgewaehlterPosten);
+            if(ausgewaehlterGast.getTisch().tischKellnerZugewiesen()) {
+                ausgewaehlterGast.gastBestellt(ausgewaehlterPosten);
+                initialize();
+                zeigePopUp("Der Kunde "+ ausgewaehlterGast.getPersonName() + " hat " + ausgewaehlterPosten.getPostenName() + " bestellt.");
+            } else {
+                zeigePopUp("Dem Tisch " + ausgewaehlterGast.getTisch().getTischnummer() + " ist aktuell kein Kellner zugewiesen. Bitte Kellner Tisch zuweisung überprüfen");
+            }
             // Weitere Aktionen, wie das Aktualisieren der Ansicht oder das Anzeigen einer Bestätigung
         } else {
-            zeigeFehler("Bitte wähle einen Gast und einen Posten aus");
+            zeigePopUp("Bitte wähle einen Gast und einen Posten aus");
         }
     }
 
@@ -368,7 +377,7 @@ public class HelloController {
         return newWindow;
     }
 
-    protected void zeigeFehler(String fehler){
+    protected void zeigePopUp(String fehler){
         Stage fehlerFenster = new Stage();
         VBox layout = new VBox();
         Text fehlerText = new Text(fehler);
@@ -378,7 +387,7 @@ public class HelloController {
         fehlerFenster.setScene(secondScene);
 
         // Titel für das neue Fenster setzen
-        fehlerFenster.setTitle("Fehler");
+        fehlerFenster.setTitle("Info");
 
         fehlerFenster.show();
     }
@@ -386,10 +395,10 @@ public class HelloController {
     private void zeigeGastRechnungen(Tisch tisch) {
         Gast[] gaeste = tisch.getTischGaeste(); // Methode, um Gäste eines Tisches zu erhalten
         gastRechnungPagination.setPageCount(tisch.tischAnzahlGaeste());
-        gastRechnungPagination.setPageFactory(pageIndex -> erstelleRechnungsSeite(gaeste[pageIndex]));
+        gastRechnungPagination.setPageFactory(pageIndex -> erstelleRechnungsSeite(gaeste[pageIndex], tisch));
     }
 
-    private VBox erstelleRechnungsSeite(Gast gast) {
+    private VBox erstelleRechnungsSeite(Gast gast, Tisch tisch) {
         VBox vbox = new VBox();
         vbox.setSpacing(5); // Setze Abstand zwischen Elementen
 
@@ -414,13 +423,53 @@ public class HelloController {
         vbox.getChildren().add(rechnungsSumme);
 
         Button bezahlenButton = new Button("Bezahlen");
-        bezahlenButton.setOnAction(event -> gast.gastBezahlt());
+        bezahlenButton.setOnAction(event -> {
+            gast.gastBezahlt();
+            postenListe.getChildren().clear();
+            rechnungsSumme.setText(String.valueOf(gast.gastBestellungenGetSumme()) + "€");
+            bezahlenButton.setDisable(gast.gastHatBezahlt());
+            aktualisiereTischFreigebenButton(tisch);
+            tagesUmsatzAktualisieren();
+        });
         bezahlenButton.setDisable(gast.gastHatBezahlt());
 
         vbox.getChildren().add(bezahlenButton);
 
         return vbox;
     }
+    @FXML
+    protected void onFreigebenButtonClick() {
+        Tisch ausgewaehlterTisch = tischChoiceBox.getSelectionModel().getSelectedItem();
+        if (ausgewaehlterTisch != null) {
+            ausgewaehlterTisch.tischGaesteLeeren(); // Ruft die tischFreigeben Methode für den ausgewählten Tisch auf
+            // Aktualisiere die ChoiceBox und die Tischansicht
+            tischChoiceBox.setItems(FXCollections.observableArrayList(
+                    Restaurant.restaurantTische.stream()
+                            .filter(tisch -> !tisch.tischLeer())
+                            .collect(Collectors.toList())
+            ));
+            initialize();
+
+            // Weitere Aktionen, wie Benachrichtigung an den Benutzer, dass der Tisch freigegeben wurde
+            // ...
+        } else {
+            zeigePopUp("Bitte wähle zuerst einen Tisch aus.");
+        }
+    }
+
+    @FXML
+    protected void onKassenabschlussClick(){
+        try {
+            Restaurant.restaurantClose();
+        } catch (NotYetPaidException | IOException e) {
+            zeigePopUp(e.getMessage());
+        }
+    }
+
+    private void tagesUmsatzAktualisieren(){
+        tagesumsatzText.setText(String.valueOf(Restaurant.getGesamtumsatzAbrechnung()) + "€");
+    }
+
 
     private void aktualisiereTischFreigebenButton(Tisch tisch) {
         tischFreigebenButton.setDisable(!tisch.tischGaesteRechnungenBezahlt());

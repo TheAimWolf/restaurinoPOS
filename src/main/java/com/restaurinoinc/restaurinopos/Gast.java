@@ -27,6 +27,10 @@ public class Gast extends Person {
 		tisch.tischGastHinzufuegen(this);
 	}
 
+	public Tisch getTisch() {
+		return tisch;
+	}
+
 	protected void gastBestellt(Posten posten) {
 		if (tisch.tischKellnerZugewiesen() == true) {
 			gastBestellungen.add(posten);

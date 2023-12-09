@@ -29,55 +29,63 @@ public class Restaurant extends Application {
 
 	public static void main(String[] args) {
 
-		Posten pizza = new Posten("Pizza", 2.90);
-		Posten cola = new Posten("Cola", 28.20);
-		restaurantPosten.add(pizza);
-		restaurantPosten.add(cola);
+		Posten schnitzelMitPommes = new Posten("Schnitzel mit Pommes", 9.9);
+		Posten grosserSalat = new Posten("Großer Salat", 6.8);
+		Posten pizzaHawaii = new Posten("Pizza Hawaii", 5.9);
+		Posten forelleMuellerin = new Posten("Forelle Müllerin", 12.5);
+		Posten getraenkKlein = new Posten("Getränk klein", 2.1);
+		Posten getraenkGross = new Posten("Getränk groß", 3.9);
 
-		Kellner kellner = new Kellner("A", "B");
+		restaurantPosten.add(schnitzelMitPommes);
+		restaurantPosten.add(grosserSalat);
+		restaurantPosten.add(pizzaHawaii);
+		restaurantPosten.add(forelleMuellerin);
+		restaurantPosten.add(getraenkKlein);
+		restaurantPosten.add(getraenkGross);
+
+		Kellner kellner = new Kellner("Karsten", "Stahl");
 		restaurantKellner.add(kellner);
 		Tisch tisch = new Tisch(1);
 		restaurantTische.add(tisch);
 
 		tisch.tischKellnerZuweisen(kellner);
 
-		Gast gast1 = new Gast("Gast", "1", tisch);
-		Gast gast2 = new Gast("Gast", "2", tisch);
+		Gast gast1 = new Gast("Max", "Mustermann", tisch);
+		Gast gast2 = new Gast("Tom", "Riddle", tisch);
 		restaurantGaeste.add(gast1);
 		restaurantGaeste.add(gast2);
 		launch();
+		try{
+			restaurantClose();
 
-		gast1.gastBestellt(cola);
-		gast1.gastBestellt(pizza);
-
-		gast2.gastBestellt(cola);
-
-		restaurantClose();
-
+		} catch (NotYetPaidException | IOException e) {
+			System.out.println("Ein unerwarteter Fehler ist aufgetreten");
+		}
 	}
 
-	private static void restaurantClose() {
-		boolean tischeBezahlt = true;
+	public static void restaurantClose() throws NotYetPaidException, IOException{
 
 		for (int i = 0; i < restaurantTische.size(); i++) {
 			if (restaurantTische.get(i).tischGaesteRechnungenBezahlt() == false) {
-				tischeBezahlt = false;
-				System.out.println("Tisch " + i + " hat nicht bezahlt. Programm wird nicht beendet. Bitte erst alle Tische schließen!");
+				throw new NotYetPaidException();
 			}
 		}
 
-		if (tischeBezahlt == true) {
-			if (restaurantGesamtumsatz() == false) {
-				System.exit(0);
-			} else {
-				System.out.println("Es ist ein Fehler aufgetreten. Das Programm wird nicht beendet. Bitte Abrechnung erneut ausführen.");
-			}
+		try {
+			restaurantGesamtumsatz();
 		}
+		catch (IOException e) {
+			throw e;
+		}
+		System.exit(0);
+
 	}
 
-	private static boolean restaurantGesamtumsatz() {
-		boolean fehler = false;
+	public static double getGesamtumsatzAbrechnung(){
+		return gesamtumsatzAbrechnung;
+	}
 
+	private static void restaurantGesamtumsatz() throws IOException {
 		DateTimeFormatter dateTimeFile = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss-SSS");
 		DateTimeFormatter dateTimeText = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 		LocalDateTime dateTimeNow = LocalDateTime.now();
@@ -94,20 +102,14 @@ public class Restaurant extends Application {
 			restaurantSchreibeDatei("Programm wird beendet. Auf Wiedersehen!");
 		} else {
 			System.out.println("Datei " + gesamtumsatzDateiname + "existiert bereits! Bitte Datei löschen.");
-			fehler = true;
 		}
-
-		return fehler;
 	}
 
-	private static void restaurantSchreibeDatei(String string) {
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(gesamtumsatzFile, true))) {
-			writer.write(string);
-			writer.newLine();
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	private static void restaurantSchreibeDatei(String string) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(gesamtumsatzFile, true));
+		writer.write(string);
+		writer.newLine();
+		writer.close();
 	}
 
 	public static void restaurantGesamtumsatzHinzufuegen(Double umsatz) {

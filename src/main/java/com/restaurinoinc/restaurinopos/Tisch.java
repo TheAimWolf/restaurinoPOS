@@ -101,14 +101,17 @@ public class Tisch {
 		}
 	}
 
-	protected void tischGaesteLeeren() {
+	public void tischGaesteLeeren() {
 		if (tischGaesteRechnungenBezahlt() == true) {
 			for (int i = 0; i < tischGaeste.length; i++) {
-				tischGaeste[i] = null;
+				if(tischGaeste != null) {
+					Restaurant.restaurantGaeste.remove(tischGaeste[i]);
+					tischGaeste[i] = null;
+				}
 			}
 			tischKellnerEntfernen();
-			// GÄSTE LÖSCHEN??? \\
-			
+
+
 			System.out.println("Alle Gäste haben ihre Rechnungen bezahlt. Der Tisch wird freigegeben.");
 		} else {
 			System.out.println("Es haben noch nicht alle Gäste ihre Rechnung beglichen. Bitte erst bezahlen und dann erneut versuchen.");
