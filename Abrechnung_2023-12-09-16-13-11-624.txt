@@ -1,6 +1,0 @@
-===ABRECHNUNG===
-Abrechungszeit: 09.12.2023 16:13:11
-Abrechnung erfolgreich.
-Kasse wird geschlossen.
-Gesamtumsatz: 65.1
-Programm wird beendet. Auf Wiedersehen!

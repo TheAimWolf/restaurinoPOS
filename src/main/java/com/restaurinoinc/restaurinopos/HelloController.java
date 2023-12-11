@@ -311,7 +311,7 @@ public class HelloController {
         Button hinzufuegen = new Button("Hinzufügen");
         GridPane.setConstraints(hinzufuegen, 1, 0);
 
-        Stage newWindow = neuesEingabeFenster("Neuen Kellner hinzufügen", tischnummer, hinzufuegen);
+        Stage newWindow = neuesEingabeFenster("Neuen Tisch hinzufügen", tischnummer, hinzufuegen);
 
         hinzufuegen.setOnMouseClicked(mouseEvent -> {
             int tischnummerText = 0;

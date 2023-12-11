@@ -16,24 +16,34 @@
                            <children>
                               <SplitPane dividerPositions="0.5" layoutX="51.0" layoutY="52.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Label layoutX="75.0" layoutY="36.0" text="Tagesumsatz">
-                                             <font>
-                                                <Font size="25.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="tagesumsatzText" layoutX="75.0" layoutY="70.0" prefHeight="42.0" prefWidth="124.0" text="0.0€">
-                                             <font>
-                                                <Font size="25.0" />
-                                             </font>
-                                          </Label>
+                                          <StackPane prefHeight="100.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <Label layoutX="75.0" layoutY="36.0" text="Tagesumsatz">
+                                                <font>
+                                                   <Font size="25.0" />
+                                                </font>
+                                             </Label>
+                                          </StackPane>
+                                       </children>
+                                       <children>
+                                          <StackPane prefHeight="100.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                                             <Label fx:id="tagesumsatzText" layoutX="75.0" layoutY="70.0" prefHeight="42.0" prefWidth="124.0" text="0.0€">
+                                                <font>
+                                                   <Font size="25.0" />
+                                                </font>
+                                             </Label>
+                                          </StackPane>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Button layoutX="93.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#onKassenabschlussClick" prefHeight="52.0" prefWidth="108.0" text="Kassenabschluss" />
-                                       </children></AnchorPane>
+                                           <StackPane prefHeight="100.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                               <Button mnemonicParsing="false" onMouseClicked="#onKassenabschlussClick" 
+                                                       prefHeight="52.0" prefWidth="108.0" text="Kassenabschluss" />
+                                           </StackPane>
+                                       </children>
+                                   </AnchorPane>
                                 </items>
                               </SplitPane>
                            </children>
