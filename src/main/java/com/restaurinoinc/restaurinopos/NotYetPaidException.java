@@ -5,6 +5,10 @@ public class NotYetPaidException extends Exception{
         super("Die Rechnung wurde noch nicht bezahlt.");
     }
 
+    /**
+     * Public Konstruktor Klasse NotYetPaidExeption
+     * @param message Nachricht des Fehlers
+     */
     public NotYetPaidException(String message) {
         super(message);
     }

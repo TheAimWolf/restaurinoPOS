@@ -9,25 +9,35 @@ public class Tisch {
 	private final int TISCHGROESSE = 4;
 	private Gast[] tischGaeste = new Gast[TISCHGROESSE];
 
-	public Kellner getTischZugewiesenerKellner() {
-		return tischZugewiesenerKellner;
-	}
-
-	public void setTischZugewiesenerKellner(Kellner tischZugewiesenerKellner) {
-		this.tischZugewiesenerKellner = tischZugewiesenerKellner;
-	}
-
 	private Kellner tischZugewiesenerKellner;
 
 	/**
 	 * Public Konstruktor Klasse Tisch
-	 * 
+	 *
 	 * Erzeugen eines Tisches im Restaurant.
 	 */
 	public Tisch(int pTischnummer) {
 		tischnummer = pTischnummer;
 	}
+	/**
+	 * Zugewiesenes Kellner Objekt zurückgeben
+	 * @return Kellner zugewiesener Kellner
+	 * */
+	public Kellner getTischZugewiesenerKellner() {
+		return tischZugewiesenerKellner;
+	}
+	/**
+	 * Zugewiesenes Kellner Objekt setzen
+	 * @param tischZugewiesenerKellner Kellner Objekt das zugewiesen werden soll
+	 * */
+	public void setTischZugewiesenerKellner(Kellner tischZugewiesenerKellner) {
+		this.tischZugewiesenerKellner = tischZugewiesenerKellner;
+	}
 
+	/**
+	 * Tischnummer zurückgeben
+	 * @return int Tischnummer
+	 * */
 	public Integer getTischnummer() {
 		return tischnummer;
 	}
@@ -40,6 +50,10 @@ public class Tisch {
 		tischZugewiesenerKellner = null;
 	}
 
+	/**
+	 * Gäste welche am Tisch sitzen zurückgeben
+	 * @return Gast[] Gäste am Tisch
+	 * */
 	public Gast[] getTischGaeste(){
 		return tischGaeste;
 	}
@@ -52,6 +66,10 @@ public class Tisch {
 		}
 	}
 
+	/**
+	 * True zurückgeben, wenn der Tisch bereits voll ist und false falls noch Plätze frei sind
+	 * @return boolean ist Tisch voll
+	 * */
 	public boolean tischVoll() {
 		if (tischAnzahlGaeste() == TISCHGROESSE) {
 			return true;
@@ -60,6 +78,10 @@ public class Tisch {
 		}
 	}
 
+	/**
+	 * True zurückgeben, wenn der Tisch leer ist und false, wenn schon jemand am Tisch sitzt
+	 * @return boolean ist Tisch leer
+	 * */
 	public boolean tischLeer() {
 		if (tischAnzahlGaeste() == 0) {
 			return true;
@@ -68,6 +90,10 @@ public class Tisch {
 		}
 	}
 
+	/**
+	 * Anzahl der Gäste am Tisch zurückgeben
+	 * @return int Anzahl Gäste am Tisch
+	 * */
 	public int tischAnzahlGaeste() {
 		int anzahlGaesteAnTisch = 0;
 
@@ -101,6 +127,9 @@ public class Tisch {
 		}
 	}
 
+	/**
+	 * Gäste vom Tisch Objekt entkoppeln
+	 * */
 	public void tischGaesteLeeren() {
 		if (tischGaesteRechnungenBezahlt() == true) {
 			for (int i = 0; i < tischGaeste.length; i++) {

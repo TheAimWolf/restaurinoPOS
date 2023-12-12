@@ -400,14 +400,14 @@ public class HelloController {
 
     private VBox erstelleRechnungsSeite(Gast gast, Tisch tisch) {
         VBox vbox = new VBox();
-        vbox.setSpacing(5); // Setze Abstand zwischen Elementen
+        vbox.setSpacing(5);
 
         Label rechnungHeader = new Label("Rechnungsdetails für " + gast.getPersonName());
         vbox.getChildren().add(rechnungHeader);
 
         ScrollPane scrollPane = new ScrollPane();
         VBox postenListe = new VBox();
-        postenListe.setSpacing(2); // Setze Abstand zwischen Posten
+        postenListe.setSpacing(2);
 
         // Füge die Posten zur VBox hinzu
         List<Posten> gastBestellungen = gast.getGastBestellungen();
@@ -441,17 +441,13 @@ public class HelloController {
     protected void onFreigebenButtonClick() {
         Tisch ausgewaehlterTisch = tischChoiceBox.getSelectionModel().getSelectedItem();
         if (ausgewaehlterTisch != null) {
-            ausgewaehlterTisch.tischGaesteLeeren(); // Ruft die tischFreigeben Methode für den ausgewählten Tisch auf
-            // Aktualisiere die ChoiceBox und die Tischansicht
+            ausgewaehlterTisch.tischGaesteLeeren();
             tischChoiceBox.setItems(FXCollections.observableArrayList(
                     Restaurant.restaurantTische.stream()
                             .filter(tisch -> !tisch.tischLeer())
                             .collect(Collectors.toList())
             ));
             initialize();
-
-            // Weitere Aktionen, wie Benachrichtigung an den Benutzer, dass der Tisch freigegeben wurde
-            // ...
         } else {
             zeigePopUp("Bitte wähle zuerst einen Tisch aus.");
         }

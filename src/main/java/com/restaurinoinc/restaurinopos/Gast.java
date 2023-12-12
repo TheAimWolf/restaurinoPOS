@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Gast extends Person {
 	private List<Posten> gastBestellungen = new ArrayList<>();
 	private Tisch tisch;
-	private Restaurant restaurant;
 
 	/**
 	 * Public Konstruktor Klasse Gast
@@ -27,6 +26,10 @@ public class Gast extends Person {
 		tisch.tischGastHinzufuegen(this);
 	}
 
+	/**
+	 * Getter für Tisch Objekt
+	 * @return Tisch
+	 */
 	public Tisch getTisch() {
 		return tisch;
 	}
@@ -39,10 +42,18 @@ public class Gast extends Person {
 		}
 	}
 
+	/**
+	 * Getter für die Liste der Gastbestellungen
+	 * @return List<Posten> Gast-Bestellungen
+	 */
 	public List<Posten> getGastBestellungen(){
 		return gastBestellungen;
 	}
 
+	/**
+	 * Getter für Gast-Tischnummer
+	 * @return int Tischnummer
+	 */
 	public int getTischnummer(){
 		return tisch.getTischnummer();
 	}
@@ -65,6 +76,10 @@ public class Gast extends Person {
 
 	}
 
+	/**
+	 * Summe der Gast-Bestellung zurückgeben
+	 * @return int Summe der Gast-Rechnung
+	 */
 	public double gastBestellungenGetSumme() {
 		double gastBestellungenSumme = 0;
 

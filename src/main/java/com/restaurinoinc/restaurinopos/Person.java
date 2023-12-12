@@ -26,6 +26,14 @@ public class Person {
 	protected String getPersonName() {
 		return personVorname + " " + personNachname;
 	}
+	/**
+	 * Person Vorname zurückgeben
+	 * @return String Vorname der Person
+	 */
 	public String getPersonVorname(){return personVorname;}
+	/**
+	 * Person Nachname zurückgeben
+	 * @return String Nachname der Person
+	 */
 	public String getPersonNachname(){return personNachname;}
 }

@@ -24,10 +24,18 @@ public class Posten {
 		allePosten.add(this);
 	}
 
+	/**
+	 * Posten Bezeichnung zurückgeben
+	 * @return String Bezeichnung des Postens
+	 */
 	public String getPostenName() {
 		return postenName;
 	}
 
+	/**
+	 * Posten Preis zurückgeben
+	 * @return double Preis des Postens
+	 */
 	public double getPostenPreis() {
 		return postenPreis;
 	}
